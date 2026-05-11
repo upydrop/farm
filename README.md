@@ -1,0 +1,1 @@
+directory /src is tmxlite's addon
