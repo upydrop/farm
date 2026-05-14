@@ -7,6 +7,7 @@
 #include <chrono>
 #include <algorithm>
 #include "crops/Crop.hpp"
+#include <stdexcept>
 
 class Screen : public Engine {
     private:
@@ -16,10 +17,14 @@ class Screen : public Engine {
         vector<Sprite*> allSprites;
         bool spritesDirty = true;
         float camX = 0, camY = 0;
+        ALLEGRO_FONT* font = nullptr;
     public:
         Screen(){
             loadMap(gmap, "data/maps/map.tmx");
-            gmap.dropped_loot.push_back(new Hoe(Point{200, 200}, 10));
+            gmap.dropped_loot.push_back({new Hoe(Point{200, 200}, 10), 1});
+            gmap.worktables.push_back(std::make_unique<Workbench>(300, 300));
+            font = al_create_builtin_font();
+            if (!font) throw "Failed to create font in screen init";
         };
         void physics_process() override {
             al_get_mouse_state(&m_state);
@@ -38,6 +43,10 @@ class Screen : public Engine {
                 gmap.crops.end());
 
             gmap.player->get_inv()->item_update(gmap);
+
+            for (const auto& wb : gmap.worktables) {
+                wb->update(gmap);
+            }
         }
         void render_process() override {
             al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -60,9 +69,9 @@ class Screen : public Engine {
                 float offsetX = -camX;
 
                 for (const auto& item : gmap.dropped_loot){
-                    Point pos = item->get_pos();
+                    Point pos = item.item->get_pos();
                     if (!onScreenC(pos.x, pos.y, 30, 30)) continue;
-                    item->draw(Point{pos.x + offsetX, pos.y + offsetY}, 30, 30);
+                    item.item->draw(Point{pos.x + offsetX, pos.y + offsetY}, 30, 30);
                 };
 
                 ALLEGRO_TRANSFORM t, old_t;
@@ -99,26 +108,51 @@ class Screen : public Engine {
                     s->draw(gmap, gmap.player->get_pos());
                 };
 
+                for (const auto& wb : gmap.worktables) {
+                    if (!onScreen(wb->worldX, wb->worldY, 50, 50)) continue;
+                    wb->drawSprite(camX, camY);
+                    if (wb->isOpen()) {
+                        wb->draw(gmap);
+                    }
+                }
+
                 gmap.player->get_inv()->draw_update(gmap);
 
                 gmap.player->getBag()->draw(gmap);
+
+                if (gmap.held_item){
+                    gmap.held_item->draw(Point{(float)m_state.x, (float)m_state.y}, 30, 30);
+                    al_draw_textf(font, al_map_rgb(255, 255, 255),
+                        m_state.x+30, m_state.y, ALLEGRO_ALIGN_RIGHT, "%d", gmap.held_item_quantity);
+                }
         }
 };
 
 int main()
 {
-    al_init();
-    al_init_primitives_addon();
-    al_init_image_addon();
-    al_install_mouse();
-    al_install_keyboard();
-
-    Screen screen;
     try {
+        if (!al_init()) throw std::runtime_error("Failed to init Allegro");
+        al_init_primitives_addon();
+        al_init_image_addon();
+        al_install_mouse();
+        al_install_keyboard();
+        al_init_font_addon();
+        al_init_ttf_addon();
+
+        std::cout << "Initializing screen" << std::endl;
+        Screen screen;
+        
+        std::cout << "Starting engine" << std::endl;
         screen.start();
-    } catch (char const *error) {
-        std::cout << error << std::endl;
-    };
+
+    } catch (const std::exception& e) {
+        std::cerr << "Standard Exception: " << e.what() << std::endl;
+    } catch (const char* error) {
+        std::cerr << "String Exception: " << error << std::endl;
+    } catch (...) {
+        std::cerr << "Unknown error" << std::endl;
+    }
+
     return 0;
 }
 

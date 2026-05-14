@@ -1,5 +1,6 @@
 #include "Bag.hpp"
 #include "../consts.hpp"
+#include "../GameMap.hpp"
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <algorithm>
@@ -234,7 +235,6 @@ void Bag::draw(GameMap& gm)
 
         if (c.item->isStackable() && c.quantity > 1 && font) {
             std::string qty = std::to_string(c.quantity);
-            al_draw_text(font, al_map_rgb(0, 0, 0), tx + 5.f, ty + 5.f, 0, qty.c_str()); //shadow
             al_draw_text(font, al_map_rgb(255, 255, 255), tx, ty, 0, qty.c_str());
         }
     }

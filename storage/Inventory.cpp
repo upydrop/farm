@@ -24,21 +24,24 @@ void Inventory::load_frames() {
 Inventory::Inventory(Point pos_){
     pos = pos_;
     item_count = 0;
-    inv_img = al_load_bitmap("images/inventory/inv.png");
+    inv_img = al_load_bitmap("images/storage/inventory/inv.png");
     if (!inv_img) throw "Failed to load inventory image";
-    selected_img = al_load_bitmap("images/inventory/selected.png");
+    selected_img = al_load_bitmap("images/storage/inventory/selected.png");
     if (!selected_img) throw "Failed to load selected image";
     load_frames();
     font = al_create_builtin_font();
     if (!font) throw "Failed to create font";
     items.push_back(InventorySlot{new Hoe(), 1}); //tests
-    items.push_back(InventorySlot{new WheatItem(), 1}); //tests
+    items.push_back(InventorySlot{new WheatItem(), 6}); //tests
     items.push_back(InventorySlot{new WheatSeed(), 1}); //tests
     items.push_back(InventorySlot{new WheatSeed(), 1}); //tests
     items.push_back(InventorySlot{new WateringCan(), 1}); //tests
     items.push_back(InventorySlot{new FishingRod(), 1}); //tests
     items.push_back(InventorySlot{new Bread(), 30}); //tests
-    item_count+=7; //tests
+    items.push_back(InventorySlot{new CarrotItem(), 30}); //tests
+    items.push_back(InventorySlot{new CarrotSeed(), 30}); //tests
+    items.push_back(InventorySlot{new CarrotCake(), 1}); //tests
+    item_count+=10; //tests
 }
 
 void Inventory::item_update(GameMap& gmap){

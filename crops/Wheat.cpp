@@ -1,6 +1,5 @@
 #include "Wheat.hpp"
 #include "../items/Item.hpp"
-#include <allegro5/allegro_image.h>
 #include <cstdio>
 
 Wheat::Wheat(int tile_x, int tile_y): Crop(tile_x, tile_y, GROW_TIME, STAGES)

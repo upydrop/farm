@@ -14,7 +14,7 @@ void FishingRod::spawnLoot(GameMap& gmap) {
     Item* drop = lootFactory(gmap);
     if (!drop) return;
     drop->set_pos(*gmap.player->get_pos());
-    gmap.dropped_loot.push_back(drop);
+    gmap.dropped_loot.push_back({drop, 1});
 }
 
 void FishingRod::retract() {
@@ -35,7 +35,9 @@ bool FishingRod::functionality(GameMap& gmap) {
     for (const auto& tileID : tileIDs){
         Tile& tile = gmap.tileLayers[tileID.layerID][tileID.tileID];
         tileType water = tileTypes["water"];
-        if (tile.id == water.tileID && tile.tilesetIndex == water.tilesetIndex){
+        tileType water1 = tileTypes["water1"];
+        tileType water2 = tileTypes["water2"];
+        if (tile.id == water.tileID && tile.tilesetIndex == water.tilesetIndex || tile.id == water1.tileID && tile.tilesetIndex == water1.tilesetIndex || tile.id == water2.tileID && tile.tilesetIndex == water2.tilesetIndex){
             calcRodTip(gmap);
 
             bobber.x       = rodTipX;

@@ -8,7 +8,8 @@
 #include "../items/Item.hpp"
 #include "../sprite/Player.hpp"
 #include "Inventory.hpp"
-#include "../GameMap.hpp"
+
+struct GameMap;
 
 class Bag {
 public:
@@ -47,7 +48,7 @@ private:
     int  halfOf(int count) const;
 
 public:
-    Bag(ALLEGRO_BITMAP* img = al_load_bitmap("images/bag/bag.png"), ALLEGRO_FONT* fnt = al_create_builtin_font());
+    Bag(ALLEGRO_BITMAP* img = al_load_bitmap("images/storage/bag/bag.png"), ALLEGRO_FONT* fnt = al_create_builtin_font());
     ~Bag();
 
     bool addItem(Item* item, int quantity = 1);

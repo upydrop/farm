@@ -1,4 +1,4 @@
-g++ main.cpp engine.cpp items/Item.cpp storage/Inventory.cpp funcs/mapFuncs.cpp sprite/Player.cpp sprite/Sprite.cpp funcs/eventHandler.cpp consts.cpp crops/Crop.cpp crops/Wheat.cpp funcs/LootHandler.cpp items/FishingRod.cpp storage/Bag.cpp ^
+g++ main.cpp engine.cpp items/Item.cpp storage/Inventory.cpp funcs/mapFuncs.cpp sprite/Player.cpp sprite/Sprite.cpp funcs/eventHandler.cpp consts.cpp crops/Crop.cpp crops/Wheat.cpp funcs/LootHandler.cpp items/FishingRod.cpp storage/Bag.cpp storage/Workbench.cpp GameMap.cpp crops/Carrot.cpp ^
 src/Map.cpp src/TileLayer.cpp src/ObjectGroup.cpp src/LayerGroup.cpp ^
 src/ImageLayer.cpp src/Object.cpp src/Property.cpp src/ObjectTypes.cpp ^
 src/TileSet.cpp src/FreeFuncs.cpp src/miniz.c src/detail/pugixml.cpp ^

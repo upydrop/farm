@@ -25,7 +25,7 @@ void harvestCropAtPosition(GameMap& gmap, float worldX, float worldY) {
 
                 for (Item* drop : c->getDrops()) {
                     drop->set_pos(Point{ cx, cy });
-                    gmap.dropped_loot.push_back(drop);
+                    gmap.dropped_loot.push_back({drop, 1});
                 }
                 return true;
             }),

@@ -34,7 +34,7 @@ class Inventory { // singleton
         int                     cached_health = -1;
         int                     cached_hunger = -1;
         static const int        stat_size = 20;
-        static const int        square_size = 43;
+        static const int        square_size = CELL_SIZE;
         static const int        height = square_size;
         static const int        item_max_count = 10;
         static const int        width = square_size * item_max_count;

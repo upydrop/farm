@@ -111,7 +111,7 @@ void Player::input(const ALLEGRO_KEYBOARD_STATE& k_state) {
     if (len != 0){
         direction.x /= len;
         direction.y /= len;
-        if (v == player_speed_running){
+        if (v >= player_speed_running){
             fatigue_lvl += (fatigue_lvl + 1/5 <= max_fatigue) ? 1/5 : max_fatigue - fatigue_lvl;
             hungerPoints -= (hungerPoints - dt/10 >= 0) ? dt/10 : 0;
         } else{

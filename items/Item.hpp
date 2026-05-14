@@ -20,7 +20,7 @@ class Item{
         int             w;
         int             h;
     public:
-        Item(string name_, string img_path_, Point pos = Point{0, 0}, int healthPoints = 0, float use_cooldown = 0.2f, bool stackable = false);
+        Item(string name_, string img_path_, Point pos = Point{-1, -1}, int healthPoints = 0, float use_cooldown = 0.2f, bool stackable = false);
         Item(const Item& other); //for copying
         ~Item();
 
@@ -45,29 +45,11 @@ class Item{
 
 class Hoe final: public Item {
     public:
-        Hoe(Point pos_ = {0, 0}, int healthPoints_ = 10, float use_cooldown_ = 0.07f, bool stackable_ = false) : Item("Hoe", "images/items/hoe.png", pos_, healthPoints_, use_cooldown_, stackable_){};
+        Hoe(Point pos_ = {-1, -1}, int healthPoints_ = 10, float use_cooldown_ = 0.07f, bool stackable_ = false) : Item("Hoe", "images/items/hoe.png", pos_, healthPoints_, use_cooldown_, stackable_){};
         bool functionality(GameMap& gmap) override;
         Hoe(const Hoe& other) : Item(other) {}
         Item* clone() const override {
             return new Hoe(*this);
-        }
-};
-
-class WheatSeed final: public Item {
-    public:
-        WheatSeed(Point pos_ = {0, 0}, int healthPoints_ = 0, float use_cooldown_ = 0.2f, bool stackable_ = true) : Item("Wheat Seed", "images/items/wheat_seed.png", pos_, healthPoints_, use_cooldown_, stackable_){};
-        bool functionality(GameMap& gmap) override;
-        Item* clone() const override {
-            return new WheatSeed(*this);
-        }
-};
-
-class WheatItem final: public Item {
-    public:
-        WheatItem(Point pos_ = {0, 0}, int healthPoints_ = 0, float use_cooldown_ = 0.2f, bool stackable_ = true) : Item("Wheat", "images/items/wheat.png", pos_, healthPoints_, use_cooldown_, stackable_) {};
-        bool functionality(GameMap& gmap) override { return false; }
-        Item* clone() const override {
-            return new WheatItem(*this);
         }
 };
 
@@ -77,7 +59,7 @@ class WateringCan final: public Item {
         float water_usage = 10.f;
     public:
         float get_water_level() const { return water_level; }
-        WateringCan(Point pos_ = {0, 0}, int healthPoints_ = 0, float use_cooldown_ = 0.2f, bool stackable_ = false) : Item("Watering Can", "images/items/watering_can.png", pos_, healthPoints_, use_cooldown_, stackable_) {};
+        WateringCan(Point pos_ = {-1, -1}, int healthPoints_ = 0, float use_cooldown_ = 0.2f, bool stackable_ = false) : Item("Watering Can", "images/items/watering_can.png", pos_, healthPoints_, use_cooldown_, stackable_) {};
         bool functionality(GameMap& gmap) override;
         Item* clone() const override {
             return new WateringCan(*this);
@@ -86,10 +68,55 @@ class WateringCan final: public Item {
 
 class Bread final: public Item {
     public:
-        Bread(Point pos_ = {0, 0}, int healthPoints_ = 0, float use_cooldown_ = 0.2f, bool stackable_ = true) : Item("Bread", "images/items/bread.png", pos_, healthPoints_, use_cooldown_, stackable_) {};
+        Bread(Point pos_ = {-1, -1}, int healthPoints_ = 0, float use_cooldown_ = 0.2f, bool stackable_ = true) : Item("Bread", "images/items/bread.png", pos_, healthPoints_, use_cooldown_, stackable_) {};
         bool functionality(GameMap& gmap) override;
         Item* clone() const override {
             return new Bread(*this);
+        }
+};
+
+class WheatSeed final: public Item {
+    public:
+        WheatSeed(Point pos_ = {-1, -1}, int healthPoints_ = 0, float use_cooldown_ = 0.2f, bool stackable_ = true) : Item("Wheat Seed", "images/items/wheat_seed.png", pos_, healthPoints_, use_cooldown_, stackable_){};
+        bool functionality(GameMap& gmap) override;
+        Item* clone() const override {
+            return new WheatSeed(*this);
+        }
+};
+
+class WheatItem final: public Item {
+    public:
+        WheatItem(Point pos_ = {-1, -1}, int healthPoints_ = 0, float use_cooldown_ = 0.2f, bool stackable_ = true) : Item("Wheat", "images/items/wheat.png", pos_, healthPoints_, use_cooldown_, stackable_) {};
+        bool functionality(GameMap& gmap) override { return false; }
+        Item* clone() const override {
+            return new WheatItem(*this);
+        }
+};
+
+class CarrotSeed final: public Item {
+    public:
+        CarrotSeed(Point pos_ = {-1, -1}, int healthPoints_ = 0, float use_cooldown_ = 0.2f, bool stackable_ = true) : Item("Carrot Seed", "images/items/carrot_seed.png", pos_, healthPoints_, use_cooldown_, stackable_){};
+        bool functionality(GameMap& gmap) override;
+        Item* clone() const override {
+            return new CarrotSeed(*this);
+        }
+};
+
+class CarrotItem final: public Item {
+    public:
+        CarrotItem(Point pos_ = {-1, -1}, int healthPoints_ = 0, float use_cooldown_ = 0.2f, bool stackable_ = true) : Item("Carrot", "images/items/carrot.png", pos_, healthPoints_, use_cooldown_, stackable_) {};
+        bool functionality(GameMap& gmap) override;
+        Item* clone() const override {
+            return new CarrotItem(*this);
+        }
+};
+
+class CarrotCake final: public Item {
+    public:
+        CarrotCake(Point pos_ = {-1, -1}, int healthPoints_ = 0, float use_cooldown_ = 0.2f, bool stackable_ = true) : Item("CarrotCake", "images/items/carrot_cake.png", pos_, healthPoints_, use_cooldown_, stackable_) {};
+        bool functionality(GameMap& gmap) override;
+        Item* clone() const override {
+            return new CarrotCake(*this);
         }
 };
 
