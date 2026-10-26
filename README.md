@@ -1,6 +1,7 @@
 # 🌾 Farm
 
 A small 2D farming game built with **C++ and Allegro 5**. Explore the map, grow crops, collect items, craft recipes, and go fishing.
+Not an end-use product😊
 
 ## 📸 Preview
 <img width="711" height="452" alt="image" src="https://github.com/user-attachments/assets/f6f7ef92-0371-486f-9cfe-a2e079e4dac1" />
